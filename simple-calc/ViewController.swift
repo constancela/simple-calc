@@ -41,7 +41,7 @@ class ViewController: UIViewController {
     
     @IBAction func basicOperation(_ sender: UIButton) {
         let newText = (sender.titleLabel?.text)!
-        result.text = result.text! + " " + newText
+        result.text = result.text! + " " + newText + " "
         
     }
     
@@ -50,23 +50,14 @@ class ViewController: UIViewController {
     
     
     @IBAction func equals(_ sender: UIButton) {
-        let equation = result.text
-        var operation = ""
-        if equation?.range(of: "+") != nil {
-            operation = "+"
-        } else if equation?.range(of: "-") != nil {
-            operation = "-"
-        } else if equation?.range(of: "/") != nil {
-            operation = "/"
-        } else if equation?.range(of: "*") != nil {
-            operation = "*"
-        } else if equation?.range(of: "%") != nil {
-            operation = "%"
-        }
+        let parts = result.text?.components(separatedBy: " ")
+        let operation = parts![1]
+        let first = Int(parts![0])!
+        let second = Int(parts![2])!
         
-        var numbers = equation?.components(separatedBy: operation)
-        let first = Int(numbers![0])!
-        let second = Int(numbers![1])!
+        print(operation)
+        print(first)
+        print(second)
         
         var total = 0
         if operation == "+" {
