@@ -70,7 +70,13 @@ class ViewController: UIViewController {
                     sum += Int(nums)!
                 }
                 total = sum / (parts?.count)!
-            } 
+            } else if exOp == "fact" {
+                var sum = 1
+                for num in parts! {
+                    sum = sum * Int(num)!
+                }
+                total = sum
+            }
                 
                 final.text = String(total)
                 reset = true
