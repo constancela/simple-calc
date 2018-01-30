@@ -22,6 +22,8 @@ class ViewController: UIViewController {
 
     var operation = ""
     var reset = false
+    var extended = false
+    var exOp = ""
     
     @IBOutlet weak var result: UILabel!
     @IBOutlet weak var final: UILabel!
@@ -33,6 +35,8 @@ class ViewController: UIViewController {
             result.text = newText
             final.text = ""
             reset = false
+            extended = false
+            exOp = ""
         } else {
             result.text = result.text! + newText
         }
@@ -46,36 +50,52 @@ class ViewController: UIViewController {
     }
     
     @IBAction func extendedOperation(_ sender: UIButton) {
+        extended = true
+        let newText = (sender.titleLabel?.text)!
+        exOp = newText
+        result.text = result.text! + " " + newText + " "
     }
     
     
     @IBAction func equals(_ sender: UIButton) {
-        let parts = result.text?.components(separatedBy: " ")
-        let operation = parts![1]
-        let first = Int(parts![0])!
-        let second = Int(parts![2])!
-        
-        print(operation)
-        print(first)
-        print(second)
-        
-        var total = 0
-        if operation == "+" {
-            total = first + second
-        } else if operation == "-" {
-            total = first - second
-        } else if operation == "/" {
-            total = first / second
-        } else if operation == "*" {
-            total = first * second
-        } else if operation == "%" {
-            total = first % second
+        if extended {
+            let parts = result.text?.components(separatedBy: " " + exOp + " ")
+       
+            var total = 0
+            if exOp == "count" {
+                total = (parts?.count)!
+            } else if exOp == "avg" {
+                var sum = 0
+                for nums in parts! {
+                    sum += Int(nums)!
+                }
+                total = sum / (parts?.count)!
+            } 
+                
+                final.text = String(total)
+                reset = true
+            
+        } else {
+            let parts = result.text?.components(separatedBy: " ")
+            let operation = parts![1]
+            let first = Int(parts![0])!
+            let second = Int(parts![2])!
+
+            var total = 0
+            if operation == "+" {
+                total = first + second
+            } else if operation == "-" {
+                total = first - second
+            } else if operation == "/" {
+                total = first / second
+            } else if operation == "*" {
+                total = first * second
+            } else if operation == "%" {
+                total = first % second
+            }
+            final.text = String(total)
+            reset = true
         }
-        final.text = String(total)
-        reset = true
-        
-        
-        
     }
 }
 
