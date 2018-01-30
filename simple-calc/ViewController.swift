@@ -72,14 +72,15 @@ class ViewController: UIViewController {
                 total = sum / (parts?.count)!
             } else if exOp == "fact" {
                 var sum = 1
-                for num in parts! {
-                    sum = sum * Int(num)!
+                let factParts = result.text?.components(separatedBy: " ")
+                for num in 1...Int(factParts![0])!{
+                    sum = sum * num
                 }
                 total = sum
-            }
                 
                 final.text = String(total)
                 reset = true
+            }
             
         } else {
             let parts = result.text?.components(separatedBy: " ")
